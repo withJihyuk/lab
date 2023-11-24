@@ -11,14 +11,15 @@ services:
       - PGID=1000
       - TZ=Asia/Seoul
       - SERVERPORT=51820
-      - PEERS=1 #optional                 # 접속가능한 peer의 숫자
-      - PEERDNS=auto #optional
-      - INTERNAL_SUBNET=10.13.13.0 #optional
+      - PEERS=1
+      - PEERDNS=auto
+      - INTERNAL_SUBNET=10.13.13.0
       - ALLOWEDIPS=0.0.0.0/0
-
+    labels:
+      org.label-schema.group: "homelab_01"
     volumes:
-      - /opt/wireguard-server/config:/config # 컨픽디렉터리
-      - /lib/modules:/lib/modules # 모듈디렉터리
+      - /opt/wireguard-server/config:/config
+      - /lib/modules:/lib/modules
     ports:
       - 51820:51820/udp
     sysctls:
