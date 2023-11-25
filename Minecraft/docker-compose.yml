@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.4"
 
 services:
   minecraft:
@@ -14,7 +14,7 @@ services:
     environment:
       - EULA=true
       - SERVER_NAME="SVER-DEV's Homelab Minecraft Server"
-      - MOTD="Simple homelab minecraft server\u00A7r\nby. \u00A75SVER-DEV"
+      - MOTD="§f§n벚꽃 서버 | mc.sver.dev   §dCherry blossom"
       - TZ=Asia/seoul
       - DIFFICULTY=EASY
       - VIEW_DISTANCE=10
@@ -22,7 +22,9 @@ services:
       - MAX_MEMORY=8G
       - EXEC_DIRECTLY=true
       - TYPE=PAPER
-      - JVM_OPTS="--add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=40 -XX:G1MaxNewSizePercent=50 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=15"
+      - ONLINE_MODE=false
+      - SEED=2592193535285114177
+      - ENABLE_JMX=true
     labels:
       org.label-schema.group: "homelab_01"
   backups:
@@ -30,5 +32,5 @@ services:
     environment:
       BACKUP_INTERVAL: "2h"
     volumes:
-      - mc:/data:ro
+      - ./minecraft-data:/data:ro
       - ./mc-backups:/backups
