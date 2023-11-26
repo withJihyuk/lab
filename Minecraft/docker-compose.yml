@@ -34,10 +34,10 @@ services:
   backups:
     image: itzg/mc-backup
     environment:
-      BACKUP_INTERVAL: "2h"
-      RCON_PASSWORD: homelab01
-      RCON_PORT: 28016
-      RCON_HOST: minecraft
+      - BACKUP_INTERVAL="2h"
+      - RCON_PASSWORD="homelab01"
+      - RCON_PORT=28016
+      - RCON_HOST=minecraft
     volumes:
       - ./minecraft-data:/data:ro
       - ./mc-backups:/backups
