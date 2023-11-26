@@ -23,10 +23,9 @@ services:
       - EXEC_DIRECTLY=true
       - TYPE=PAPER
       - ONLINE_MODE=false
-      - ENABLE_RCON="true"
+      - ENABLE_RCON=true
       - RCON_PASSWORD="homelab01"
       - RCON_PORT=28016
-      - RCON_CMDS_STARTUP=true
       - SEED=2592193535285114177
       - ENABLE_JMX=true
     labels:
