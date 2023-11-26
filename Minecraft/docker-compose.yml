@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     ports:
       - "25565:25565"
+      - "28016:28016"
     volumes:
       - ./minecraft-data:/data
     environment:
