@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  mysql:
+    image: sverdev/yoon-sol:latest
+    restart: unless-stopped
+    environment:
+      DOCKER_REGISTRY_USERNAME: docker-username
+      DOCKER_REGISTRY_PASSWORD: docker-password
