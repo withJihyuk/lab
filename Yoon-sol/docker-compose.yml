@@ -1,6 +1,6 @@
-version: "3.9"
+version: "3.3"
 services:
-  mysql:
+  yoon-sol:
     image: sverdev/yoon-sol:latest
     restart: unless-stopped
     environment:
