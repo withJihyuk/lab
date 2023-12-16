@@ -7,5 +7,6 @@
   "allowCommands": true,
   "allowEdit": true,
   "allowNew": true,
-  "commands": []
+  "commands": [],
+  "branding": "/branding"
 }
