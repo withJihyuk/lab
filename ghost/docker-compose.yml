@@ -14,7 +14,7 @@ services:
       database__connection__user: ghost
       database__connection__password: ${PASSWORD}
       database__connection__database: ghost
-      url: http://test.sver.dev
+      url: https://test.sver.dev
   db:
     image: mysql:8.0
     restart: always
