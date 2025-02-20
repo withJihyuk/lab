@@ -2,8 +2,7 @@
 
 ## 🚀 Docker composes
 
-`docker-compose.yml` files for my home server.
+제 서버에서 실제로 사용되는 `docker-compose.yml` 파일들 입니다.  
+최근엔 서버의 SPOF 지점을 방지하기 위해, 3-NODES-K3S로 운영중에 있습니다.
 
-It contains my projects docker composes file and open source containers!
-
-The entire making process will be posted on the [blog](https://mya.ong).
+본 도커들은 모두 개발용으로만 사용하며, Tailscale로 접근됩니다.
