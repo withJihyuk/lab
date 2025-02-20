@@ -12,5 +12,6 @@
 ```shell
 export CLOUDFLARED_TOKEN=(본인의 값)
 export DB_PASSWORD=(본인의 값)
+cd (실행할 컨테이너)
 docker-compose up -d
 ```
