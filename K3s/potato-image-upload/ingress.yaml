@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: "traefik"
   rules:
-    - host: poato-api.mya.ong
+    - host: potato-api.mya.ong
       http:
         paths:
           - path: /
