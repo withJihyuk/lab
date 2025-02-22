@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressRoute
+metadata:
+  name: potato-image-backend-ingress
+  namespace: potato
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`potato-api.mya.ong`)
+      kind: Rule
+      services:
+        - name: potato-image-backend
+          port: 80
+  tls:
+    certResolver: default
