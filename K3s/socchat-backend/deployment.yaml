@@ -15,8 +15,6 @@ spec:
       labels:
         app: socchat-backend
     spec:
-      imagePullSecrets:
-        - name: socchat-pull-secret
       containers:
         - name: socchat-backend
           image: ghcr.io/soc-chat/socchat-backend:latest
