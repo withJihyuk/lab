@@ -19,7 +19,7 @@ spec:
         - name: socchat-pull-secret
       containers:
         - name: socchat-backend
-          image: ghcr.io/withjihyuk/supabase_upload_image:latest
+          image: ghcr.io/soc-chat/socchat-backend:latest
           ports:
             - containerPort: 10001
           resources:
