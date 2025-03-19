@@ -22,10 +22,10 @@ spec:
             - containerPort: 10001
           resources:
             limits:
-              cpu: 600m
+              cpu: 400m
               memory: 1G
             requests:
-              cpu: 400m
+              cpu: 200m
               memory: 512Mi
           readinessProbe:
             httpGet:
