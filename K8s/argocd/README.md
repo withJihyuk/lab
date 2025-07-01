@@ -65,3 +65,20 @@ data:
   policy.default: role:anonymous-viewer
 metadata:
 ```
+
+## 익명 접근 허용 & Bedge 사용
+
+포트폴리오 목적으로, 외부에 `Applications Status`를 노출 하고 싶었다.
+
+```shell
+kubectl get configmap argocd-cm -n argocd -o yaml > argocd-cm-latest.yaml
+```
+
+이후, `argocd-cm-latest.yaml` 파일에서 `metadata`와 같은 depth에 아래 라인을 추가 해준다.  
+본인의 필요에 따라 수정 해주면 된다.
+
+```yaml
+data:
+  users.anonymous.enabled: "true" # 익명 접근
+  statusbadge.enabled: "true" # 뱃지
+```
