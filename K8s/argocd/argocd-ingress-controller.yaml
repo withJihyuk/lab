@@ -1,11 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-ingress
+  name: argocd-server-ingress
   namespace: argocd
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTP
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/grpc-backend: "true"
 spec:
   ingressClassName: nginx
   rules:
@@ -22,4 +24,4 @@ spec:
   tls:
     - hosts:
         - argocd.mya.ong
-      secretName: argocd-server-tls
+      secretName: argocd-tls

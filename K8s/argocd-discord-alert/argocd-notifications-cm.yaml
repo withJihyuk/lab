@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+data:
+  service.webhook.danuri-webhook: |
+    url: ${DANURI_WEBHOOK_URL}
+    headers:
+    - name: Content-Type
+      value: application/json
+  trigger.sync-operation-change: |
+    - when: app.status.operationState.phase in ['Running', 'Succeeded', 'Error', 'Failed']
+      send: [ danuri-discord-alert ]
+  template.danuri-discord-alert: |
+    webhook:
+      danuri-webhook:
+        method: POST
+        body: |
+          {
+            "embeds": [
+              {
+                "title": "서버 배포 알림 - {{ .app.metadata.name }}",
+                "description": " **{{ .app.metadata.name }}** 의 상태가 **{{ .app.status.operationState.phase }}** 로 변경되었습니다.",
+                "color": "{{ if eq .app.status.operationState.phase "Running" }} 1127128 {{end}} {{ if eq .app.status.operationState.phase "Succeeded" }} 3066993 {{end}} {{ if eq .app.status.operationState.phase "Error" }} 15158332 {{end}} {{ if eq .app.status.operationState.phase "Failed" }} 15158332 {{end}}"
+              }
+            ]
+          }
