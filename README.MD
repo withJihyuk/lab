@@ -2,8 +2,7 @@
 
 ## 🚀 K8s Stacks
 
-제 서버에서 실제로 사용되는 파일들 입니다.  
-OKE + Nginx Ingress Controller + Cert-Manager + ArgoCD + Grafana (with PLG Stack) + Cloud Load Balancer
+Kubernetes Manifest And Docker Files for Managed Cluster & Homelab
 
 <table>
 <thead>
@@ -11,7 +10,7 @@ OKE + Nginx Ingress Controller + Cert-Manager + ArgoCD + Grafana (with PLG Stack
 <th colspan="4" align="center">
 <br />
 
-> All Services
+All Services
 
 </th>
 </tr>
