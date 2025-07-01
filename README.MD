@@ -1,6 +1,6 @@
 <div align=center>
 
-## 🚀 Docker composes
+## 🚀 K8s Stacks
 
 제 서버에서 실제로 사용되는 파일들 입니다.  
 OKE + Nginx Ingress Controller + Cert-Manager + ArgoCD + Grafana (with PLG Stack) + Cloud Load Balancer
