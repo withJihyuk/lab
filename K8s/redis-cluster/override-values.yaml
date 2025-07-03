@@ -10,11 +10,16 @@ redis:
       memory: "2Gi"
 
   defaultConfigOverride: |
-    maxmemory 1600mb
+    cluster-enabled yes
+    cluster-config-file /bitnami/redis/data/nodes.conf
+    replica-read-only yes
+    cluster-node-timeout 5000
+    maxmemory 800mb
     maxmemory-policy allkeys-lru
     maxmemory-samples 5
-    cluster-node-timeout 5000
     tcp-keepalive 60
 
 persistence:
-  enabled: false
+  enabled: true
+  size: 50Gi
+  storageClassName: oci-bv

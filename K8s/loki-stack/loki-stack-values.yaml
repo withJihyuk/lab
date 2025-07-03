@@ -3,32 +3,33 @@ loki:
   isDefault: true
   persistence:
     enabled: true
-    size: 10Gi
+    size: 50Gi
     storageClassName: oci-bv
   resources:
     requests:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
     limits:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
+  storageClassName: oci-bv
 
 promtail:
   enabled: true
   extraScrapeConfigs: []
   resources:
     requests:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
     limits:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
 
 grafana:
   enabled: true
   persistence:
     enabled: true
-    size: 10Gi
+    size: 50Gi
     storageClassName: oci-bv
   sidecar:
     datasources:
@@ -39,20 +40,20 @@ grafana:
       searchNamespace: ALL
   resources:
     requests:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
     limits:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
 
 prometheus:
   enabled: true
   resources:
     requests:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
     limits:
-      cpu: 300m
+      cpu: 200m
       memory: 500Mi
   extraScrapeConfigs: |
     - job_name: 'conner-backend'
