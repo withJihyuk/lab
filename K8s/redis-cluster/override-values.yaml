@@ -1,0 +1,20 @@
+usePassword: false
+
+redis:
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "2Gi"
+    limits:
+      cpu: "200m"
+      memory: "2Gi"
+
+  defaultConfigOverride: |
+    maxmemory 1600mb
+    maxmemory-policy allkeys-lru
+    maxmemory-samples 5
+    cluster-node-timeout 5000
+    tcp-keepalive 60
+
+persistence:
+  enabled: false
