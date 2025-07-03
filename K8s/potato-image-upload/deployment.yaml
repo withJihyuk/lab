@@ -15,8 +15,6 @@ spec:
       labels:
         app: potato-image-backend
     spec:
-      imagePullSecrets:
-        - name: potato-pull-secret
       containers:
         - name: potato-image-backend
           image: ghcr.io/withjihyuk/supabase_upload_image:latest
