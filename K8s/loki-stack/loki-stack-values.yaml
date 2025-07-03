@@ -60,14 +60,14 @@ prometheus:
       metrics_path: '/actuator/prometheus'
       scrape_interval: 5s
       static_configs:
-        - targets: ['conner-backend.conner.default.svc.cluster.local:8081']
+        - targets: ['conner-backend.conner.svc.cluster.local:8081']
     - job_name: 'danuri-backend-prod'
       metrics_path: '/actuator/prometheus'
       scrape_interval: 5s
       static_configs:
-        - targets: ['danuri-prod.danuri-prod.default.svc.cluster.local:8081']
+        - targets: ['danuri-backend.danuri-prod.svc.cluster.local:8081']
     - job_name: 'danuri-backend-stage'
       metrics_path: '/actuator/prometheus'
       scrape_interval: 5s
       static_configs:
-        - targets: ['danuri-stage.danuri-stage.default.svc.cluster.local:8081']
+        - targets: ['danuri-backend.danuri-stage.svc.cluster.local:8081']
