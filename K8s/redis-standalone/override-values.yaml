@@ -1,0 +1,30 @@
+usePassword: false
+
+redis:
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "2Gi"
+    limits:
+      cpu: "200m"
+      memory: "3Gi"
+
+  defaultConfigOverride: |
+    maxmemory 1800mb
+    maxmemory-policy volatile-ttl
+    appendonly no
+    save ""
+
+architecture: standalone
+
+master:
+  persistence:
+    enabled: false
+
+persistence:
+  enabled: false
+
+replicas:
+  replicaCount: 0
+  persistence:
+    enabled: false
