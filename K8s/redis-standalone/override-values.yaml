@@ -1,4 +1,5 @@
-usePassword: false
+auth:
+  enabled: false
 
 redis:
   resources:
