@@ -1,0 +1,15 @@
+apiVersion: secrets.doppler.com/v1alpha1
+kind: DopplerSecret
+metadata:
+  name: danuri-backend-prod
+  namespace: doppler-operator-system
+spec:
+  tokenSecret:
+    name: danuri-backend-prod
+    namespace: doppler-operator-system
+  project: danuri-backend
+  config: prd
+  managedSecret:
+    name: danuri-backend
+    namespace: danuri-prod
+    type: Opaque
