@@ -1,0 +1,15 @@
+apiVersion: secrets.doppler.com/v1alpha1
+kind: DopplerSecret
+metadata:
+  name: potato-image-upload
+  namespace: doppler-operator-system
+spec:
+  tokenSecret:
+    name: potato-image-upload
+    namespace: doppler-operator-system
+  project: potato-image-upload
+  config: prd
+  managedSecret:
+    name: potato-image-upload-prod
+    namespace: potato
+    type: Opaque
