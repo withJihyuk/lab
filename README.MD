@@ -32,11 +32,6 @@ All Services
 [![potato-image-upload status](https://argocd.mya.ong/api/badge?name=potato-image-upload&showAppName=true)](https://argocd.mya.ong/applications/potato-image-upload)
 
 </td>
-<td>
-
-[![motung-prod status](https://argocd.mya.ong/api/badge?name=motung-prod&showAppName=true)](https://argocd.mya.ong/applications/motung-prod)
-
-</td>
 </tr>
 </tbody>
 </table>
