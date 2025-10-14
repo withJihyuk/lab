@@ -7,5 +7,5 @@ longhorn volumes -> update replicas count -> 1
 ```
 
 ```bash
-kubectl get secret --namespace monitoring loki-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+kubectl get secret --namespace monitoring loki-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ```
