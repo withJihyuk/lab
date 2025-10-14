@@ -4,8 +4,6 @@ loki:
     enabled: true
     size: 10Gi
     storageClassName: longhorn
-    annotations:
-        longhorn.io/replica-count: "1"
   resources:
     requests:
       cpu: 200m
@@ -31,8 +29,6 @@ grafana:
     enabled: true
     size: 5Gi
     storageClassName: longhorn
-    annotations:
-        longhorn.io/replica-count: "1"
   sidecar:
     datasources:
       enabled: true
@@ -55,8 +51,6 @@ prometheus:
       enabled: true
       size: 15Gi
       storageClassName: longhorn
-      annotations:
-        longhorn.io/replica-count: "1"
   resources:
     requests:
       cpu: 200m

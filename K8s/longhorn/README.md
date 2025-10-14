@@ -7,3 +7,7 @@ helm install longhorn longhorn/longhorn \
   --set defaultSettings.defaultDataPath=/mnt/longhorn
 ```
 
+```
+export KUBE_EDITOR="nano"
+kubectl edit storage class longhorn
+```
