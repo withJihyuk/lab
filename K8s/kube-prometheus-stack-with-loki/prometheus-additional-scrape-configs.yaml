@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prometheus-additional-scrape-configs
+  namespace: monitoring
+type: Opaque
+stringData:
+  prometheus-additional.yaml: |
+    - job_name: 'danuri-backend-prod'
+      metrics_path: '/actuator/prometheus'
+      scrape_interval: 5s
+      static_configs:
+        - targets: ['danuri-backend.danuri-prod.svc.cluster.local:8081']
+    - job_name: 'danuri-backend-stage'
+      metrics_path: '/actuator/prometheus'
+      scrape_interval: 5s
+      static_configs:
+        - targets: ['danuri-backend.danuri-stage.svc.cluster.local:8081']
