@@ -4,7 +4,7 @@ helm repo update
 kubectl create namespace monitoring
 kubectl apply -f prometheus-additional-scrape-configs.yaml
 helm install kube-prometheus prometheus-community/kube-prometheus-stack \
-    -f my-values.yaml \
+    -f override-values.yaml \
     -n monitoring
 ```
 
