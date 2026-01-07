@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
-  - ingress.yaml
+  - potato-api-route.yaml
   - configmap.yaml
 
 namespace: potato
