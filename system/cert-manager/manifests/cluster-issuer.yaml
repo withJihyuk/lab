@@ -1,17 +1,7 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cloudflare-api-token-secret
-  namespace: cert-manager
-type: Opaque
-stringData:
-  api-token: "your-cloudflare-api-token-here"
----
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
-  namespace: ingress-nginx
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory

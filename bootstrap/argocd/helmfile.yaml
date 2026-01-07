@@ -1,0 +1,18 @@
+repositories:
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+
+releases:
+  - name: argocd
+    namespace: argocd
+    chart: argo/argo-cd
+    createNamespace: true
+    values:
+      - configs:
+          params:
+            server.insecure: true
+        server:
+          service:
+            type: ClusterIP
+        notifications:
+          enabled: true
