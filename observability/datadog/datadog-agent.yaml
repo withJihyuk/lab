@@ -1,0 +1,28 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+  namespace: datadog
+spec:
+  global:
+    clusterName: homelab
+    site: datadoghq.com
+    credentials:
+      apiSecret:
+        secretName: datadog-secret
+        keyName: DATADOG_API_KEY
+      appSecret:
+        secretName: datadog-secret
+        keyName: DATADOG_APP_KEY
+  features:
+    logCollection:
+      enabled: true
+      containerCollectAll: true
+    apm:
+      enabled: true
+    processDiscovery:
+      enabled: true
+    clusterChecks:
+      enabled: true
+    liveContainerCollection:
+      enabled: true

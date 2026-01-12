@@ -1,0 +1,15 @@
+apiVersion: secrets.doppler.com/v1alpha1
+kind: DopplerSecret
+metadata:
+  name: datadog-secret
+  namespace: doppler-operator-system
+spec:
+  tokenSecret:
+    name: k8s-configuration
+    namespace: doppler-operator-system
+  project: k8s-configuration
+  config: prd
+  managedSecret:
+    name: datadog-secret
+    namespace: datadog
+    type: Opaque
