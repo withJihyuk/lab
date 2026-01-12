@@ -14,9 +14,12 @@ spec:
         valuesObject:
           crds:
             enabled: true
+
     - repoURL: https://github.com/withjihyuk/homelab.git
       targetRevision: HEAD
-      path: system/cert-manager/manifests
+      path: system/cert-manager
+      directory:
+        exclude: application.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager

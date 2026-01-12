@@ -1,8 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: potato-image-upload
+  name: system
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -10,22 +12,14 @@ spec:
   source:
     repoURL: https://github.com/withjihyuk/homelab.git
     targetRevision: HEAD
-    path: projects/potato-image-upload
+    path: system
     directory:
-      exclude: application.yaml
+      recurse: true
+      include: "{**/application.yaml,**/applicationset.yaml}"
   destination:
     server: https://kubernetes.default.svc
-    namespace: potato
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - SkipDryRunOnMissingResource=true
-    retry:
-      limit: 5
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 3m

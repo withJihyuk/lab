@@ -12,8 +12,7 @@ spec:
     targetRevision: HEAD
     path: .
     directory:
-      recurse: true
-      include: '{**/application.yaml,**/applicationset.yaml}'
+      include: "{system,networking,observability,projects}/application.yaml"
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

@@ -10,7 +10,9 @@ spec:
   source:
     repoURL: https://github.com/withjihyuk/homelab.git
     targetRevision: HEAD
-    path: networking/istio-gateway/manifests
+    path: networking/istio-gateway
+    directory:
+      exclude: application.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system

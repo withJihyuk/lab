@@ -8,10 +8,27 @@ This repository contains infrastructure code for managing a Kubernetes cluster u
 
 ## Architecture
 
-### App of Apps Pattern
+### Hierarchical App of Apps Pattern
 
-- `root.yaml`: The root ArgoCD Application that automatically discovers `application.yaml` and `applicationset.yaml` files and creates child applications
-- Each application directory contains an `application.yaml` that defines the ArgoCD Application
+```
+root.yaml
+├── system/application.yaml (sync-wave: 1)
+│   ├── cert-manager/application.yaml
+│   ├── cluster-secrets/application.yaml
+│   ├── doppler-operator/application.yaml
+│   ├── istio-base/application.yaml
+│   └── istiod/application.yaml
+├── networking/application.yaml (sync-wave: 2)
+│   └── istio-gateway/application.yaml
+├── observability/application.yaml (sync-wave: 3)
+│   └── datadog/application.yaml
+└── projects/application.yaml (sync-wave: 4)
+    └── potato-image-upload/application.yaml
+```
+
+- `root.yaml`: Root Application that discovers category-level App of Apps
+- Each category (`system/`, `networking/`, `observability/`, `projects/`) has its own `application.yaml` that discovers child applications
+- `sync-wave` annotations control deployment order between categories
 
 ### Directory Structure
 
@@ -20,14 +37,21 @@ This repository contains infrastructure code for managing a Kubernetes cluster u
 ├── root.yaml                  # Root ArgoCD Application
 ├── bootstrap/                 # Initial cluster setup
 │   └── argocd/               # Install ArgoCD via Helmfile
-├── system/                    # Core system components
-│   ├── cert-manager/         # TLS certificate management
-│   ├── doppler-operator/     # Secret management
-│   ├── istio-base/           # Istio CRDs
-│   └── istiod/               # Istio control plane
-├── networking/                # Networking resources
-│   └── istio-gateway/        # Istio Gateway configuration
-└── projects/                  # Application projects
+├── system/                    # Core system components (sync-wave: 1)
+│   ├── application.yaml      # System App of Apps
+│   ├── cert-manager/
+│   ├── cluster-secrets/
+│   ├── doppler-operator/
+│   ├── istio-base/
+│   └── istiod/
+├── networking/                # Networking resources (sync-wave: 2)
+│   ├── application.yaml      # Networking App of Apps
+│   └── istio-gateway/
+├── observability/             # Monitoring and observability (sync-wave: 3)
+│   ├── application.yaml      # Observability App of Apps
+│   └── datadog/
+└── projects/                  # Application projects (sync-wave: 4)
+    ├── application.yaml      # Projects App of Apps
     └── potato-image-upload/
 ```
 
@@ -42,11 +66,13 @@ cd bootstrap/argocd && helmfile apply
 # 2. Deploy Root Application
 kubectl apply -f root.yaml
 
-# 3. Create required secrets
-kubectl create secret generic cloudflare-api-token-secret \
-  --namespace cert-manager \
-  --from-literal=api-token=<your-cloudflare-api-token>
+# 3. Create Doppler service tokens
+# k8s-configuration: cluster-wide secrets (Cloudflare, Datadog, etc.)
+kubectl create secret generic k8s-configuration \
+  --namespace doppler-operator-system \
+  --from-literal=serviceToken=<your-doppler-service-token>
 
+# Project-specific secrets
 kubectl create secret generic potato-image-upload \
   --namespace doppler-operator-system \
   --from-literal=serviceToken=<your-doppler-service-token>
@@ -68,25 +94,70 @@ kubectl get application <app-name> -n argocd -o yaml
 ## File Patterns
 
 - `application.yaml`: ArgoCD Application definition
-- `applicationset.yaml`: Multi-environment deployment using ApplicationSet (e.g., dev/prod)
-- `helmfile.yaml`: Helm chart deployment using Helmfile (used in bootstrap phase)
-- `manifests/`: Directory containing raw Kubernetes manifests for each application
+- `applicationset.yaml`: Multi-environment deployment using ApplicationSet
+- `helmfile.yaml`: Helm chart deployment using Helmfile (bootstrap only)
 
 ## Application Structure
 
-Each application follows this structure:
+All applications use the `directory.exclude` pattern - resources are placed in the same folder as `application.yaml`:
+
 ```
 <app-name>/
-├── application.yaml    # ArgoCD Application definition
-└── manifests/          # Kubernetes manifests (optional, for raw manifests)
+├── application.yaml    # ArgoCD Application (excluded from sync)
+├── resource1.yaml      # Kubernetes manifests
+└── resource2.yaml
 ```
 
-## Multi-source Applications
+### Category App of Apps
 
-Some applications combine Helm charts with additional manifests (e.g., `system/cert-manager`):
+Each category discovers child applications recursively:
 
-- First source: Helm chart (from official repository)
-- Second source: Additional resources (from `manifests/` directory)
+```yaml
+source:
+  path: <category>
+  directory:
+    recurse: true
+    include: "{**/application.yaml,**/applicationset.yaml}"
+```
+
+### Individual Applications
+
+Each application excludes its own `application.yaml`:
+
+```yaml
+source:
+  path: <category>/<app-name>
+  directory:
+    exclude: application.yaml
+```
+
+### Multi-source Applications (Helm + manifests)
+
+```yaml
+sources:
+  - repoURL: https://helm.example.com
+    chart: example-chart
+    targetRevision: 1.0.0
+
+  - repoURL: https://github.com/withjihyuk/homelab.git
+    targetRevision: HEAD
+    path: <category>/<app-name>
+    directory:
+      exclude: application.yaml
+```
+
+## Secret Management
+
+Cluster-wide secrets are managed via Doppler through `system/cluster-secrets/`:
+
+- **Doppler Project**: `k8s-configuration`
+- **Config**: `prd`
+- **Keys**:
+  - `CLOUDFLARE_API_TOKEN` - Cloudflare API token for cert-manager DNS01 challenge
+  - `DATADOG_API_KEY` - Datadog API key
+  - `DATADOG_APP_KEY` - Datadog App key
+
+DopplerSecret resources sync secrets from Doppler to target namespaces.
 
 ## Sync Policy
 
